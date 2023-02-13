@@ -1,0 +1,19 @@
+1. What are the different QoS levels that MQTT provides? Provide an explanation of when you would use each of the QoS levels.
+
+0 - At most once, use if you you already have a good connection or don't care about messages getting lost
+1 - At least once, use when you can handle duplicates and multiple deliveries
+2 - Exactly once, use when duplicates can harm the system
+
+2. MQTT uses TCP under the hood. Why then would MQTT include QoS when TCP provides reliability?
+
+Different systems are created differently so having different QoS levels allows for program flexibility as well as connection variance.
+
+3. What are some benefits of using MQTT (provide 2 examples)? What are some disadvantages of using MQTT (provide 2 examples)?
+
+Benefits: Ensures that messages are delivered, lightwight and power efficient
+Disadvantages: Differences in speed and latency, doesn't work well for video streaming
+
+4. What are some commercial products that use MQTT (provide 2). Why do you think the company decided to use MQTT for that product?
+
+Home appliances - the data about a fridge or thermostat must be sent with guarantee or else you wouldn't know how cold your fridge is or how hot your house is
+Smartphones - you want to send a text and have the message sent exactly as you wrote it to prevent confusion for the recipient
