@@ -1,0 +1,312 @@
+Score: 18 / 22
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program properly handle normal input? 
+
+### Points
+10 / 10
+
+### Command
+```
+testing/input.py
+```
+
+### stdout
+```
+b'\x00\x00\x00\x13emiT erofeB NAL ehT'
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does server support multiple requests? (run it a few times) 
+
+### Points
+5 / 5
+
+### Command
+```
+testing/multi-input.py
+```
+
+### stdout
+```
+b'\x00\x00\x00\x13emiT erofeB NAL ehT\x00\x00\x00\x16PRETTY FLY FOR A WI-FI\x00\x00\x00\x10ir ATLsemP oeNdh\x00\x00\x00\x18wi-fight the inevitable?'
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the server handle large input? 
+
+### Points
+0 / 2
+
+### Command
+```
+testing/large-input.py
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+Traceback (most recent call last):
+  File "/Users/philipbl/student_code/TCP Server_passoff/Noah_Hanks_nhanks10/testing/large-input.py", line 18, in <module>
+    received = client.recv(16_384)
+ConnectionResetError: [Errno 54] Connection reset by peer
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the server handle bad actions? 
+
+### Points
+1 / 2
+
+### Command
+```
+testing/bad-action.py
+```
+
+### stdout
+```
+b''
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Can you change the port the server is listening to? 
+
+### Points
+0 / 1
+
+### Command
+```
+testing/input-port.py
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+Traceback (most recent call last):
+  File "/Users/philipbl/student_code/TCP Server_passoff/Noah_Hanks_nhanks10/testing/input-port.py", line 6, in <module>
+    client.connect(("localhost", 8093))
+ConnectionRefusedError: [Errno 61] Connection refused
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the server handle ctrl-c (look at code)? 
+
+### Points
+2 / 2
+
+### Command
+```
+testing/show-code.sh
+```
+
+### stdout
+```
+import socket
+import threading
+import random
+import logging
+import argparse
+import methods
+import struct
+
+
+host = ""
+port = 8083
+data_buf = 1024
+format_string = "!i"
+
+FIELD1 = 0b11111000000000000000000000000000  # first 5 bits
+FIELD2 = 0b00000111111111111111111111111111  # next 27 bits
+
+
+# Creates the help menu and various argument options
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "-v", "--verbose", help="increase output verbosity", action="store_true"
+)
+parser.add_argument("--port", "-p", type=int, default=port)
+args = parser.parse_args()
+
+# Sets config for logger
+logger = logging.getLogger("")
+ch = logging.StreamHandler()
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+# If verbose flag is enabled
+if args.verbose:
+    logger.setLevel(logging.INFO)
+
+# Creates the socket and listens etc.
+server_socket = socket.socket()
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server_socket.bind((host, port))
+server_socket.listen()
+
+logger.info("Config:")
+logger.info(f"     port: {port}")
+logger.info("Creating socket...")
+logger.info("Listening on socket...")
+
+# General Server connection
+try:
+    while True:
+
+        logger.info("Waiting for clients...")
+
+        conn, address = server_socket.accept()
+        logger.info("Got a new client!")
+        logger.info(f"Connection from: {address}")
+        receiving_header = True
+
+        while True:
+            logger.info("Receiving header")
+            data = conn.recv(4)
+            if not data:
+                logger.info("Client disconnected...")
+                break
+            unpacked = struct.unpack("!i", data)
+            action = (unpacked[0] & FIELD1) >> 27
+            message_length = unpacked[0] & FIELD2
+
+            logger.info("Receiving message data")
+            msg = conn.recv(message_length).decode("cp437")
+            if len(msg) < message_length:
+                logger.error("Message not fully received")
+                conn.close()
+                break
+
+            match action:
+                case methods.Vars.UPPERCASE:
+                    response_msg = msg.upper()
+                    logger.info("Request:")
+                    logger.info("    Action: uppercase")
+                    logger.info(f"    Length: {message_length}")
+                    logger.info(f"    Message: {msg}")
+                case methods.Vars.LOWERCASE:
+                    response_msg = msg.lower()
+                    logger.info("Request:")
+                    logger.info("    Action: lowercase")
+                    logger.info(f"    Length: {message_length}")
+                    logger.info(f"    Message: {msg}")
+                case methods.Vars.REVERSE:
+                    response_msg = msg[::-1]
+                    logger.info("Request:")
+                    logger.info("    Action: reverse")
+                    logger.info(f"    Length: {message_length}")
+                    logger.info(f"    Message: {msg}")
+                case methods.Vars.SHUFFLE:
+                    response_msg = "".join(random.sample(msg, len(msg)))
+                    logger.info("Request:")
+                    logger.info("    Action: shuffle")
+                    logger.info(f"    Length: {message_length}")
+                    logger.info(f"    Message: {msg}")
+                case methods.Vars.RANDOM:
+                    response_msg = methods.randomize_text(msg)
+                    logger.info("Request:")
+                    logger.info("    Action: random")
+                    logger.info(f"    Length: {message_length}")
+                    logger.info(f"    Message: {msg}")
+                case _:
+                    response_msg = msg
+                    logger.error("Invalid action code used")
+                    print("error")
+                    conn.close()
+                    break
+
+            logger.info("Response:")
+            logger.info(f"    Message: {response_msg}\n")
+
+            if not data:
+                logger.info("Client disconnected...")
+                break
+
+            conn.send(struct.pack("!i", len(response_msg)))
+            conn.send(response_msg.encode())
+
+        conn.close()
+
+except KeyboardInterrupt:
+    print("Ctrl-c")
+    exit()
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+

@@ -1,0 +1,529 @@
+Score: 20 / 20
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program report an error with no arguments with a usage message? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:40:43 [31mERROR[0m [90msrc/tcp_client.c:114:[0m "action" and "message" arguments are required.
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program print to stderr with no arguments? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:41:11 [31mERROR[0m [90msrc/tcp_client.c:114:[0m "action" and "message" arguments are required.
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program return the correct return code (1) with no arguments? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:41:16 [31mERROR[0m [90msrc/tcp_client.c:114:[0m "action" and "message" arguments are required.
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program report an error with one argument? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client reverse
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:41:17 [31mERROR[0m [90msrc/tcp_client.c:114:[0m "action" and "message" arguments are required.
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program report an error with an extra argument? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client reverse test test
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:41:26 [31mERROR[0m [90msrc/tcp_client.c:114:[0m "action" and "message" arguments are required.
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program report an error with an extra option? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client --extra reverse test
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+bin/tcp_client: unrecognized option '--extra'
+09:41:32 [31mERROR[0m [90msrc/tcp_client.c:100:[0m Invalid option
+
+
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program report an error with an incorrect action? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client test test
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:41:34 [31mERROR[0m [90msrc/tcp_client.c:121:[0m Unknown argument provided
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program print a help message? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client --help
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program return the right value for normal input? (run it a few times) 
+
+### Points
+6 / 6
+
+### Command
+```
+bin/tcp_client --host lundrigan.byu.edu random helloworld
+```
+
+### stdout
+```
+helowrl
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program print to stdout for normal input? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client --host lundrigan.byu.edu random helloworld
+```
+
+### stdout
+```
+helloworldddd
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program return the correct return code (0) for normal input? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client --host lundrigan.byu.edu random helloworld
+```
+
+### stdout
+```
+hllooowrl
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program handle a large input? 
+
+### Points
+2 / 2
+
+### Command
+```
+bin/tcp_client --host lundrigan.byu.edu uppercase xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+### stdout
+```
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+```
+
+### stderr
+```
+
+```
+
+### Return Code
+0
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program report an error with no connection? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client reverse test --port 9999
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:41:55 [31mERROR[0m [90msrc/tcp_client.c:173:[0m client: failed to connect
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+
+
+
+### Test
+Does the program report an error with an incorrect port? 
+
+### Points
+1 / 1
+
+### Command
+```
+bin/tcp_client -p abc reverse test
+```
+
+### stdout
+```
+
+```
+
+### stderr
+```
+09:41:58 [31mERROR[0m [90msrc/tcp_client.c:80:[0m Incorrect port number
+
+Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] ACTION MESSAGE
+
+Arguments:
+ACTION   Must be uppercase, lowercase, rreverse,
+	   shuffle, or random.
+MESSAGE  Message to send to the server
+
+Options:
+  --help
+  -v, --verbose
+  --host HOSTNAME, -h HOSTNAME
+  --port PORT, -p PORT
+
+```
+
+### Return Code
+1
+
+-------------------------------------------------------------------------------
+

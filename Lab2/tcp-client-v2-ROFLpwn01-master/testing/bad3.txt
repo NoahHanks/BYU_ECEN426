@@ -1,0 +1,3 @@
+lowercase I HOPE THIS WORKS
+shuffle
+uppercase it worked!
